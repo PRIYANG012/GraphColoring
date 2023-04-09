@@ -1,0 +1,41 @@
+<div #container>
+<ngx-graph [update$]="update$"
+      [center$]="center$"
+      [view]="[containerWidth, containerHeight]"
+      layout="dagre"
+      [links]="graphService.links"
+      [nodes]="graphService.nodes"
+      [curve]="curve"
+      [enableZoom]="enableZoom"
+      [autoZoom]="autoZoom"
+      
+      [autoCenter]="autoCenter"
+      [draggingEnabled]="true"
+      [panningEnabled]="true"
+      [layoutSettings]="layoutSettings"
+      [minZoomLevel]="minZoomLevel"
+      [maxZoomLevel]="maxZoomLevel"
+      >
+      <ng-template #nodeTemplate let-node>
+        <svg:g class="node">
+          <svg:rect
+            [ngStyle]="getStyles(node)"
+            [attr.width]="node.dimension.width"
+            [attr.height]="node.dimension.height"
+            [attr.fill]="node.data.backgroundColor"
+          />
+          <svg:text
+            alignment-baseline="central"
+            [attr.x]="10"
+            [attr.y]="node.dimension.height / 2"
+          >
+            {{ node.label }}
+          </svg:text>
+        </svg:g>
+        
+      </ng-template>
+      </ngx-graph>
+      <div class="col-12">
+        <button  (click)="add()">Refresh Graph</button>
+      </div>
+    </div>
