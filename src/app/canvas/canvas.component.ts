@@ -133,7 +133,7 @@ selected: any;
   };
 
   prob = 0.5;
-  n =10;
+  n = 9;
   k = 2;
 
   graphData = {
@@ -177,7 +177,7 @@ selected: any;
 
     this.graphDatavisaul.nodes=[]
     this.graphDatavisaul.links=[]
-    
+
     const cbip = new CBIPAlgo(graph);
 
     // Setup the instance
@@ -332,21 +332,76 @@ selected: any;
 
   public ngOnInit(): void {
    
+    // 0: 5 7
+    // 1: 6 8
+    // 2: 3 7
+    // 3: 2 8
+    // 4: 9
+    // 5: 0 6
+    // 6: 1 5
+    // 7: 0 2
+    // 8: 1 3 9
+    // 9: 4 8
 
+//     const input = [    [5, 7],
+//     [6, 8],
+//     [3, 7],
+//     [2, 8],
+//     [9],
+//     [0, 6],
+//     [1, 5],
+//     [0, 2],
+//     [1, 3, 9],
+//     [4, 8]
+// ];
 
+// const graph: Set<number>[] = [];
+
+// for (let i = 0; i < input.length; i++) {
+//   graph[i] = new Set(input[i]);
+// }
+
+// this.gloabalgraph=graph
+//     this.graphData.nodes=[{id:"0",label:"0",data: {
+//       backgroundColor: '#00FFFF',
+//     },},{id:"1",label:"1",data: {
+//       backgroundColor: '#00FFFF',
+//     }},{id:"2",label:"2",data: {
+//       backgroundColor: '#00FFFF',
+//     }},{id:"3",label:"3",data: {
+//       backgroundColor: '#00FFFF',
+//     }},{id:"4",label:"4",data: {
+//       backgroundColor: '#00FFFF',
+//     }}
+//     ,{id:"5",label:"5",data: {
+//       backgroundColor: '#00FFFF',
+//     }},{id:"6",label:"6",data: {
+//       backgroundColor: '#00FFFF',
+//     }},{id:"7",label:"7",data: {
+//       backgroundColor: '#00FFFF',
+//     }},{id:"8",label:"8",data: {
+//       backgroundColor: '#00FFFF',
+//     }},{id:"9",label:"9",data: {
+//       backgroundColor: '#00FFFF',
+//     }}]
+
+//     this.graphData.links=[{source:"0",target:"5"},{source:"0",target:"7"},{source:"1",target:"6"},
+//     {source:"1",target:"8"},{source:"2",target:"3"},{source:"2",target:"7"},{source:"3",target:"2"}
+//     ,{source:"3",target:"8"},{source:"4",target:"9"},{source:"5",target:"6"},{source:"8",target:"9"}]
     this.generator2_0(this.n, this.k, this.prob,"firstfit")
+    this.colorGraph()
     this.center$.next(true);
 
     this.ratio=this.colorsbyalgo/this.k;
 
 
-    // let N=10;
+    // let N=100;
 
     // let avg=0.0;
     // let sum=0;
     // while(N>0){
 
-    //   this.generator2_0(this.n, this.k, this.prob)
+    //   this.generator2_0(this.n, this.k, this.prob,"CBIP")
     //   this.center$.next(true);
   
     //   this.ratio=this.colorsbyalgo/this.k;
@@ -357,9 +412,10 @@ selected: any;
     //       console.log(N)
     // }
 
-    // avg=sum/10;
+    // avg=sum/100;
 
     // console.log(avg)
+
 
 
 
@@ -534,8 +590,17 @@ selected: any;
       this.colorGraph()
      
     }
-    else{
+    else if(value==="CBIP"){
+      
+      console.log(this.k + "k")
+      if(this.k<3){
       this.colorGraph2(this.gloabalgraph)
+      }
+      else{
+        this.inputForm.get("algo")?.setValue("firstfit");
+
+        this.open(this.myModal)
+      }
       
     }
 }
