@@ -1,11 +1,25 @@
 <div #container>
+  <div class="row">
+    <div class="col-lg-3 text-center">
+      k: {{this.k}} 
+     
+    </div>
+    <div class="col-lg-6 text-center">
+      Number of colors by Algorithm: {{colorsbyalgo}}
+    </div>
+    <div class="col-lg-3 text-center">
+      Comparative Ratio: {{ ratio }} 
+    
+    </div>
+  </div>
   <ngx-graph
     [update$]="update$"
     [center$]="center$"
+    [zoomToFit$]="zoomToFit$"
     [view]="[containerWidth, containerHeight]"
     layout="dagre"
-    [links]="graphService.links"
-    [nodes]="graphService.nodes"
+    [links]="graphDatavisaul.links"
+    [nodes]="graphDatavisaul.nodes"
     [curve]="curve"
     [enableZoom]="enableZoom"
     [autoZoom]="autoZoom"
@@ -34,7 +48,66 @@
       </svg:g>
     </ng-template>
   </ngx-graph>
-  <div class="col-12">
-    <button (click)="add()">Refresh Graph</button>
+  <form class="row" [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+  <div class="col-lg-3">
+   
+
+      <label for="cromaticNumber">Cromatic Number (k) : </label>
+      <input id="cromaticNumber" class="form-control" type="number" formControlName="cromaticNumber">
+    
+   
+   
+  </div>
+  <div class="col-lg-3">
+    <label for="numberofNodes">Number of Nodes (n) : </label>
+    <input id="numberofNodes" class="form-control" type="number" formControlName="numberofNodes">
+  
+  </div>
+  <div class="col-lg-3">
+    <label for="Probability">Probability: </label>
+    <input id="Probability" class="form-control" type="number" formControlName="Probability">
+  
+  </div>
+  <div class="col-lg-3" >
+    <label for="numberofNodes">Algorithm: </label>
+    <select formControlName="algo" 
+    (change)='onOptionsSelected()' class="form-control">
+      <option value="firstfit">FirstFit</option>
+      <option value="CBIP">CBIP</option>
+      
+  </select>
+  </div>
+  <div class="col-lg-12 text-center"> <br>   <button type="submit" class="btn btn-danger btn-lg btn-block">
+    Submit
+  </button></div>
+  
+
+</form>
+
+  <div class="col-12 text-center">
+
+    <!-- <button class="btn btn-primary" (click)="add()">Random Generate</button> -->
   </div>
 </div>
+
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Error</h4>
+    <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+  </div>
+  <div class="modal-body row">
+    <!-- Add your modal content here -->
+    <div class="col-lg-4">
+
+    </div>
+    <div class="col-lg-4 text-center">
+      {{msg}}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>
+

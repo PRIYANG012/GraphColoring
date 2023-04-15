@@ -1,5 +1,7 @@
 import { Component, Input,ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+
 import {
   DagreSettings,
   Edge,
@@ -24,11 +26,13 @@ export class Vertex {
 })
 export class AppComponent {
 
+  adjMatrix!: number[][];
+	groups!: number[][];
+	
 
   title = 'Main';
 
   constructor(private modalService: NgbModal,private graph: CanvasComponent) {
-    
   }
 
   public open(modal: any): void {
