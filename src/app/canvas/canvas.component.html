@@ -32,19 +32,22 @@
   >
     <ng-template #nodeTemplate let-node>
       <svg:g class="node">
-        <svg:rect
-          [ngStyle]="getStyles(node)"
-          [attr.width]="node.dimension.width"
-          [attr.height]="node.dimension.height"
-          [attr.fill]="node.data.backgroundColor"
-        />
-        <svg:text
-          alignment-baseline="central"
-          [attr.x]="10"
-          [attr.y]="node.dimension.height / 2"
-        >
-          {{ node.label }}
-        </svg:text>
+
+      <svg:circle 
+      [ngStyle]="getStyles(node)"
+      [attr.r]="node.dimension.width / 2"
+      [attr.cx]="node.dimension.width / 2" 
+      [attr.cy]="node.dimension.height / 2" 
+      [attr.fill]="node.data.backgroundColor"
+      />
+    <svg:text
+      alignment-baseline="central"
+      [attr.x]="10"
+      [attr.y]="node.dimension.height / 2"
+    >{{node.label}}</svg:text>
+
+
+      
       </svg:g>
     </ng-template>
   </ngx-graph>
